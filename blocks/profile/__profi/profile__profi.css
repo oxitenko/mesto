@@ -1,0 +1,16 @@
+.profile__profi {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.2;
+  color: #ffffff;
+  margin: 0;
+}
+
+@media screen and (max-width: 767px) {
+  .profile__profi {
+    font-size: 14px;
+    text-align: center;
+  }
+}

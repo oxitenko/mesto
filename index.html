@@ -9,9 +9,31 @@
   </head>
   <body class="page">
     <header class="header">
-      <img class="header__logo" src="./images/header-logo.svg" />
+      <img
+        class="header__logo"
+        src="./images/header-logo.svg"
+        alt="логотип страницы"
+      />
     </header>
-
+    <main>
+      <section class="profile">
+        <ul class="profile__container">
+        <li><img
+            class="profile__avatar"
+            src="./images/profile-avatar.png"
+            alt="Аватар страницы"
+          /></li>
+          <li class="profile__item">
+            <h1 class="profile__name">
+              Жак-Ив Кусто
+              <button class="button__edit" type="button"></button>
+            </h1>
+            <p class="profile__profi">Исследователь океана</p>
+          </li>
+        </ul>
+        <button class="button__add" type="button"></button>
+      </section>
+    </main>
     <script src="./scripts/index.js"></script>
   </body>
 </html>
