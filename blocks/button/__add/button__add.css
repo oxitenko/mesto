@@ -8,6 +8,11 @@
   border-width: 1px;
   display: flex;
   align-self: center;
+  cursor: pointer;
+}
+
+.button__add:hover {
+  opacity: 0.6;
 }
 
 @media screen and (max-width: 767px) {
