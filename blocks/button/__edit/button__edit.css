@@ -8,6 +8,7 @@
   border-width: 1px;
   margin-left: 25px;
   cursor: pointer;
+  margin-bottom: 5px;
 }
 
 .button__edit:hover {

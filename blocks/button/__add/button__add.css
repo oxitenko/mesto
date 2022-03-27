@@ -9,6 +9,7 @@
   display: flex;
   align-self: center;
   cursor: pointer;
+  padding: 0;
 }
 
 .button__add:hover {
