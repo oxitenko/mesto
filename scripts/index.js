@@ -1,5 +1,5 @@
 let modalWindow = document.querySelector('.popup');
-let addButton = document.querySelector('.button__edit');
+let addButton = document.querySelector('.profile__button-edit');
 let closeButton = document.querySelector('.popup__close-button');
 let formElement = document.querySelector('.popup__form');
 let nameInput = document.querySelector('.popup__input-name');
