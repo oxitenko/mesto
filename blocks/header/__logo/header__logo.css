@@ -17,3 +17,7 @@
     height: 24.4px;
   }
 }
+
+.header__logo:hover {
+  opacity: 0.6;
+}

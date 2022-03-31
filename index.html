@@ -9,33 +9,34 @@
   </head>
   <body class="page">
     <header class="header">
-      <img
-        class="header__logo"
-        src="./images/header-logo.svg"
-        alt="логотип страницы"
-      />
+      <a href="#"
+        ><img
+          class="header__logo"
+          src="./images/header-logo.svg"
+          alt="логотип страницы"
+      /></a>
     </header>
     <main>
       <section class="profile">
-        <ul class="profile__container">
-          <li>
-            <img
-              class="profile__avatar"
-              src="./images/profile-avatar.png"
-              alt="Аватар страницы"
-            />
-          </li>
-          <li class="profile__item">
-            <article class="profile__element">
-              <h1 class="profile__name">Жак-Ив Кусто</h1>
-              <p class="profile__profi">Исследователь океана</p>
-            </article>
-            <article class="profile__element">
-              <button class="profile__button-edit" type="button"></button>
-            </article>
-          </li>
-        </ul>
-        <button class="profile__button-add" type="button"></button>
+        <img
+          class="profile__avatar"
+          src="./images/profile-avatar.png"
+          alt="Аватар страницы"
+        />
+        <div class="profile__item">
+          <h1 class="profile__name">Жак-Ив Кусто</h1>
+          <button
+            class="profile__button-edit"
+            type="button"
+            aria-label="Редактировать профиль"
+          ></button>
+          <p class="profile__profi">Исследователь океана</p>
+        </div>
+        <button
+          class="profile__button-add"
+          type="button"
+          aria-label="Добавить фотографию"
+        ></button>
       </section>
 
       <section class="elements">
@@ -46,10 +47,10 @@
               src="./images/main-hakone.jpg"
               alt="Ворота тори Хаконе"
             />
-            <article class="elements__head">
-              <p class="elements__title">Хаконе</p>
+            <div class="elements__head">
+              <h2 class="elements__title">Хаконе</h2>
               <button class="elements__like" type="button"></button>
-            </article>
+            </div>
           </li>
           <li class="elements__item">
             <img
@@ -57,10 +58,10 @@
               src="./images/main-nara.jpg"
               alt="Оленя кормят печенькой"
             />
-            <article class="elements__head">
-              <p class="elements__title">Нара</p>
+            <div class="elements__head">
+              <h2 class="elements__title">Нара</h2>
               <button class="elements__like" type="button"></button>
-            </article>
+            </div>
           </li>
           <li class="elements__item">
             <img
@@ -68,10 +69,10 @@
               src="./images/main-miyajima.jpg"
               alt="Статуи"
             />
-            <article class="elements__head">
-              <p class="elements__title">Миядзима</p>
+            <div class="elements__head">
+              <h2 class="elements__title">Миядзима</h2>
               <button class="elements__like" type="button"></button>
-            </article>
+            </div>
           </li>
           <li class="elements__item">
             <img
@@ -79,10 +80,10 @@
               src="./images/main-elbrus.png"
               alt="Гора Эльбрус"
             />
-            <article class="elements__head">
-              <p class="elements__title">Гора Эльбрус</p>
+            <div class="elements__head">
+              <h2 class="elements__title">Гора Эльбрус</h2>
               <button class="elements__like" type="button"></button>
-            </article>
+            </div>
           </li>
           <li class="elements__item">
             <img
@@ -90,10 +91,10 @@
               src="./images/main-dombai.png"
               alt="Домбай"
             />
-            <article class="elements__head">
-              <p class="elements__title">Домбай</p>
+            <div class="elements__head">
+              <h2 class="elements__title">Домбай</h2>
               <button class="elements__like" type="button"></button>
-            </article>
+            </div>
           </li>
           <li class="elements__item">
             <img
@@ -101,10 +102,10 @@
               src="./images/main-karachaevsk.jpg"
               alt="Карачаево-Черкессия"
             />
-            <article class="elements__head">
-              <p class="elements__title">Карачаево-Черкессия</p>
+            <div class="elements__head">
+              <h2 class="elements__title">Карачаево-Черкессия</h2>
               <button class="elements__like" type="button"></button>
-            </article>
+            </div>
           </li>
         </ul>
       </section>
@@ -114,27 +115,29 @@
     </footer>
     <div class="popup">
       <div class="popup__content">
-        <p class="popup__title">Редактировать профиль</p>
-        <button class="popup__close-button"></button>
-        <form class="popup__form">
-          <fieldset class="popup__form-container">
-            <input
-              class="popup__input popup__input-name"
-              type="text"
-              name="name"
-              id="name"
-              placeholder="Имя"
-              required
-            />
-            <input
-              class="popup__input popup__input-job"
-              type="text"
-              name="profi"
-              id="profi"
-              placeholder="О себе"
-              required
-            />
-          </fieldset>
+        <h2 class="popup__title">Редактировать профиль</h2>
+        <button
+          class="popup__close-button"
+          type="button"
+          aria-label="Закрыть"
+        ></button>
+        <form class="popup__form" name="popup__form" method="post" action="">
+          <input
+            class="popup__input popup__input_enter_name"
+            type="text"
+            name="name"
+            id="name"
+            placeholder="Имя"
+            required
+          />
+          <input
+            class="popup__input popup__input_enter_job"
+            type="text"
+            name="profi"
+            id="profi"
+            placeholder="О себе"
+            required
+          />
           <button type="submit" class="popup__submit-button">Сохранить</button>
         </form>
       </div>
