@@ -1,7 +1,7 @@
 .popup {
   display: none;
-  padding-top: 187px;
   margin: 0 auto;
+  align-items: center;
   background-color: rgba(0, 0, 0, 0.5);
   position: fixed;
   top: 0;
@@ -9,10 +9,4 @@
   bottom: 0;
   right: 0;
   font-family: "Inter", Arial, Helvetica, sans-serif;
-}
-
-@media screen and (max-width: 767px) {
-  .popup {
-    padding-top: 123px;
-  }
 }
