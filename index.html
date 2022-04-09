@@ -38,88 +38,14 @@
           aria-label="Добавить фотографию"
         ></button>
       </section>
-
       <section class="elements">
-        <ul class="elements__container">
-          <li class="elements__item">
-            <img
-              class="elements__pic"
-              src="./images/main-hakone.jpg"
-              alt="Ворота тори Хаконе"
-            />
-            <button class="elements__trashbox" type="button"></button>
-            <div class="elements__head">
-              <h2 class="elements__title">Хаконе</h2>
-              <button class="elements__like" type="button"></button>
-            </div>
-          </li>
-          <li class="elements__item">
-            <img
-              class="elements__pic"
-              src="./images/main-nara.jpg"
-              alt="Оленя кормят печенькой"
-            />
-            <button class="elements__trashbox" type="button"></button>
-            <div class="elements__head">
-              <h2 class="elements__title">Нара</h2>
-              <button class="elements__like" type="button"></button>
-            </div>
-          </li>
-          <li class="elements__item">
-            <img
-              class="elements__pic"
-              src="./images/main-miyajima.jpg"
-              alt="Статуи"
-            />
-            <button class="elements__trashbox" type="button"></button>
-            <div class="elements__head">
-              <h2 class="elements__title">Миядзима</h2>
-              <button class="elements__like" type="button"></button>
-            </div>
-          </li>
-          <li class="elements__item">
-            <img
-              class="elements__pic"
-              src="./images/main-elbrus.png"
-              alt="Гора Эльбрус"
-            />
-            <button class="elements__trashbox" type="button"></button>
-            <div class="elements__head">
-              <h2 class="elements__title">Гора Эльбрус</h2>
-              <button class="elements__like" type="button"></button>
-            </div>
-          </li>
-          <li class="elements__item">
-            <img
-              class="elements__pic"
-              src="./images/main-dombai.png"
-              alt="Домбай"
-            />
-            <button class="elements__trashbox" type="button"></button>
-            <div class="elements__head">
-              <h2 class="elements__title">Домбай</h2>
-              <button class="elements__like" type="button"></button>
-            </div>
-          </li>
-          <li class="elements__item">
-            <img
-              class="elements__pic"
-              src="./images/main-karachaevsk.jpg"
-              alt="Карачаево-Черкессия"
-            />
-            <button class="elements__trashbox" type="button"></button>
-            <div class="elements__head">
-              <h2 class="elements__title">Карачаево-Черкессия</h2>
-              <button class="elements__like" type="button"></button>
-            </div>
-          </li>
-        </ul>
+        <ul class="elements__container"></ul>
       </section>
     </main>
     <footer class="footer">
       <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
     </footer>
-    <div class="popup">
+    <div class="popup popup_element-edit">
       <div class="popup__content">
         <h2 class="popup__title">Редактировать профиль</h2>
         <button
@@ -144,10 +70,79 @@
             placeholder="О себе"
             required
           />
-          <button type="submit" class="popup__submit-button">Сохранить</button>
+          <button
+            type="submit"
+            class="popup__submit-button"
+            aria-label="Сохранить"
+          >
+            Сохранить
+          </button>
         </form>
       </div>
     </div>
+    <div class="popup popup_element-add">
+      <div class="popup__content">
+        <h2 class="popup__title">Новое место</h2>
+        <button
+          class="popup__close-button popup__close-button_place_elementadd"
+          type="button"
+          aria-label="Закрыть"
+        ></button>
+        <form
+          class="popup__form popup__form_element-add"
+          name="popup__form"
+          method="post"
+          action="#"
+        >
+          <input
+            class="popup__input popup__input_enter_placename"
+            type="text"
+            name="placename"
+            id="placename"
+            placeholder="Название"
+            required
+          />
+          <input
+            class="popup__input popup__input_enter_linkplace"
+            type="url"
+            name="linkplace"
+            id="linkplace"
+            placeholder="Ссылка на картинку"
+            required
+          />
+          <button type="submit" class="popup__submit-button">Создать</button>
+        </form>
+      </div>
+    </div>
+    <div class="popup popup_element-imgview">
+      <div class="popup__content popup__content_element-imgview">
+        <button
+          class="popup__close-button popup__close-button_place_elementview"
+          type="button"
+          aria-label="Закрыть"
+        ></button>
+        <img class="popup__pic" />
+        <figcaption class="popup__caption"></figcaption>
+      </div>
+    </div>
+    <template class="elements__template">
+      <li class="elements__item">
+        <img class="elements__pic" />
+        <button
+          class="elements__trashbox"
+          type="button"
+          aria-label="Удалить"
+        ></button>
+        <div class="elements__head">
+          <h2 class="elements__title"></h2>
+          <button
+            class="elements__like"
+            type="button"
+            aria-label="Лайк"
+          ></button>
+        </div>
+      </li>
+    </template>
     <script src="./scripts/index.js"></script>
   </body>
 </html>

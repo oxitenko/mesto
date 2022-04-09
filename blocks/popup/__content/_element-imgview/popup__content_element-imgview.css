@@ -1,0 +1,7 @@
+.popup__content_element-imgview {
+  max-width: 75vw;
+  max-height: 75vh;
+  background: none;
+  box-shadow: none;
+  border-radius: 0;
+}
