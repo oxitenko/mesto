@@ -1,11 +1,11 @@
+const modalWindow = document.querySelector(".popup");
 const modalWindowEdit = document.querySelector(".popup_element-edit");
+const closeButtonEdit = modalWindowEdit.querySelector(".popup__close-button");
 const modalWindowAdd = document.querySelector(".popup_element-add");
+const closeButtonAdd = modalWindowAdd.querySelector(".popup__close-button");
 const modalWindowView = document.querySelector(".popup_element-imgview");
+const closeButtonView = modalWindowView.querySelector(".popup__close-button");
 const editButton = document.querySelector(".profile__button-edit");
-const closeButton = document.querySelector(".popup__close-button");
-const closeButtonAdd = document.querySelector(
-  ".popup__close-button_place_elementadd"
-);
 const formElement = document.querySelector(".popup__form");
 const formElementAdd = document.querySelector(".popup__form_element-add");
 const nameInput = document.querySelector(".popup__input_enter_name");
@@ -19,9 +19,6 @@ const placenameInput = document.querySelector(".popup__input_enter_placename");
 const placelinkInput = document.querySelector(".popup__input_enter_linkplace");
 const popupViewPic = document.querySelector(".popup__pic");
 const popupViewCaption = document.querySelector(".popup__caption");
-const closeButtonView = document.querySelector(
-  ".popup__close-button_place_elementview"
-);
 
 const initialCards = [
   {
@@ -73,31 +70,27 @@ function getCards(item) {
 
   deleteButton.addEventListener("click", handlerDeleteCard);
   likeButton.addEventListener("click", handlerLikeCard);
-  imageCard.addEventListener("click", OpenCloseModalWindowView);
+  imageCard.addEventListener("click", function (evt) {
+    if (!modalWindowView.classList.contains("popup_opened")) {
+      const el = evt.target;
+      popupViewPic.src = el.getAttribute("src");
+      popupViewPic.alt = el.getAttribute("alt");
+      popupViewCaption.textContent = el.getAttribute("alt");
+    }
+    OpenModalWindow(modalWindowView);
+  });
 
   return cardsElement;
 }
 
-function OpenCloseModalWindowView(evt) {
-  if (!modalWindowView.classList.contains("popup_opened")) {
-    const el = evt.target;
-    popupViewPic.src = el.getAttribute("src");
-    popupViewPic.alt = el.getAttribute("alt");
-    popupViewCaption.textContent = el.getAttribute("alt");
-  }
-  modalWindowView.classList.toggle("popup_opened");
+addCardsOnPage();
+
+function OpenModalWindow(modalWindow) {
+  modalWindow.classList.add("popup_opened");
 }
 
-function OpenCloseModalWindowEdit() {
-  if (!modalWindowEdit.classList.contains("popup_opened")) {
-    nameInput.value = profileName.textContent;
-    jobInput.value = profileJob.textContent;
-  }
-  modalWindowEdit.classList.toggle("popup_opened");
-}
-
-function OpenCloseModalWindowAdd() {
-  modalWindowAdd.classList.toggle("popup_opened");
+function CloseModalWindow(modalWindow) {
+  modalWindow.classList.remove("popup_opened");
 }
 
 function handlerDeleteCard(evt) {
@@ -109,8 +102,6 @@ function handlerLikeCard(evt) {
   evt.target.classList.toggle("elements__like_active");
 }
 
-addCardsOnPage();
-
 function handlerAddNewCard(evt) {
   evt.preventDefault();
   const newCardOnPage = getCards({
@@ -118,20 +109,37 @@ function handlerAddNewCard(evt) {
     link: placelinkInput.value,
   });
   cardsContainer.prepend(newCardOnPage);
-  OpenCloseModalWindowAdd();
+  CloseModalWindow(modalWindowAdd);
 }
 
 function formSubmitHandler(evt) {
   evt.preventDefault();
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
-  OpenCloseModalWindowEdit();
+  CloseModalWindow(modalWindowEdit);
 }
 
-editButton.addEventListener("click", OpenCloseModalWindowEdit);
-closeButton.addEventListener("click", OpenCloseModalWindowEdit);
-closeButtonAdd.addEventListener("click", OpenCloseModalWindowAdd);
+editButton.addEventListener("click", function () {
+  if (!modalWindowEdit.classList.contains("popup_opened")) {
+    nameInput.value = profileName.textContent;
+    jobInput.value = profileJob.textContent;
+  }
+  OpenModalWindow(modalWindowEdit);
+});
+
+addButton.addEventListener("click", function () {
+  OpenModalWindow(modalWindowAdd);
+});
+
+closeButtonEdit.addEventListener("click", function () {
+  CloseModalWindow(modalWindowEdit);
+});
+closeButtonAdd.addEventListener("click", function () {
+  CloseModalWindow(modalWindowAdd);
+});
+closeButtonView.addEventListener("click", function () {
+  CloseModalWindow(modalWindowView);
+});
+
 formElement.addEventListener("submit", formSubmitHandler);
-addButton.addEventListener("click", OpenCloseModalWindowAdd);
 formElementAdd.addEventListener("submit", handlerAddNewCard);
-closeButtonView.addEventListener("click", OpenCloseModalWindowView);
