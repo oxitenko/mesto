@@ -78,22 +78,15 @@ function getCards(item) {
   return cardsElement;
 }
 
-function OpenCloseModalWindowView() {
+function OpenCloseModalWindowView(evt) {
+  if (!modalWindowView.classList.contains("popup_opened")) {
+    const el = evt.target;
+    popupViewPic.src = el.getAttribute("src");
+    popupViewPic.alt = el.getAttribute("alt");
+    popupViewCaption.textContent = el.getAttribute("alt");
+  }
   modalWindowView.classList.toggle("popup_opened");
-  // popupViewPic.src =
-  // popupViewCaption.textContent =
 }
-
-function handlerDeleteCard(evt) {
-  const deletaCard = evt.target.closest(".elements__item");
-  deletaCard.remove();
-}
-
-function handlerLikeCard(evt) {
-  evt.target.classList.toggle("elements__like_active");
-}
-
-addCardsOnPage();
 
 function OpenCloseModalWindowEdit() {
   if (!modalWindowEdit.classList.contains("popup_opened")) {
@@ -107,12 +100,16 @@ function OpenCloseModalWindowAdd() {
   modalWindowAdd.classList.toggle("popup_opened");
 }
 
-function formSubmitHandler(evt) {
-  evt.preventDefault();
-  profileName.textContent = nameInput.value;
-  profileJob.textContent = jobInput.value;
-  OpenCloseModalWindowEdit();
+function handlerDeleteCard(evt) {
+  const deletaCard = evt.target.closest(".elements__item");
+  deletaCard.remove();
 }
+
+function handlerLikeCard(evt) {
+  evt.target.classList.toggle("elements__like_active");
+}
+
+addCardsOnPage();
 
 function handlerAddNewCard(evt) {
   evt.preventDefault();
@@ -122,6 +119,13 @@ function handlerAddNewCard(evt) {
   });
   cardsContainer.prepend(newCardOnPage);
   OpenCloseModalWindowAdd();
+}
+
+function formSubmitHandler(evt) {
+  evt.preventDefault();
+  profileName.textContent = nameInput.value;
+  profileJob.textContent = jobInput.value;
+  OpenCloseModalWindowEdit();
 }
 
 editButton.addEventListener("click", OpenCloseModalWindowEdit);

@@ -4,4 +4,6 @@
   background: none;
   box-shadow: none;
   border-radius: 0;
+  width: auto;
+  height: 100%;
 }
