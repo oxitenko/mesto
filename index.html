@@ -53,23 +53,38 @@
           type="button"
           aria-label="Закрыть"
         ></button>
-        <form class="popup__form" name="popup__form" method="post" action="#">
+
+        <form
+          class="popup__form"
+          name="popup__form"
+          method="post"
+          action="#"
+          novalidate
+        >
           <input
             class="popup__input popup__input_enter_name"
             type="text"
             name="name"
-            id="name"
+            id="name-input"
             placeholder="Имя"
+            minlength="2"
+            maxlength="40"
             required
           />
+          <span class="name-input-error"></span>
+
           <input
             class="popup__input popup__input_enter_job"
             type="text"
             name="profi"
-            id="profi"
+            id="profi-input"
             placeholder="О себе"
+            minlength="2"
+            maxlength="200"
             required
           />
+          <span class="profi-input-error"></span>
+
           <button
             type="submit"
             class="popup__submit-button"
@@ -93,23 +108,30 @@
           name="popup__form"
           method="post"
           action="#"
+          novalidate
         >
           <input
             class="popup__input popup__input_enter_placename"
             type="text"
             name="placename"
-            id="placename"
+            id="placename-input"
             placeholder="Название"
+            minlength="2"
+            maxlength="30"
             required
           />
+          <span class="placename-input-error"></span>
+
           <input
             class="popup__input popup__input_enter_linkplace"
             type="url"
             name="linkplace"
-            id="linkplace"
+            id="linkplace-input"
             placeholder="Ссылка на картинку"
             required
           />
+          <span class="linkplace-input-error"></span>
+
           <button type="submit" class="popup__submit-button">Создать</button>
         </form>
       </div>
@@ -143,6 +165,7 @@
         </div>
       </li>
     </template>
+    <script src="./scripts/validate.js"></script>
     <script src="./scripts/index.js"></script>
   </body>
 </html>
