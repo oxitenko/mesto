@@ -20,7 +20,6 @@ function enableValidation(config) {
 
   hasInvalidInput(inputs);
   toggleButtonState(inputs, button, config.inactiveButtonClass);
-  inputValidation(element, config.inputErrorClass, config.errorClass);
 }
 
 function setEventListeners(
