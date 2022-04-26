@@ -7,17 +7,35 @@ function enableValidation(config) {
     document.querySelectorAll(config.submitButtonSelector)
   );
 
-  console.log(button);
-
-  inputs.forEach((element) => {
-    element.addEventListener("input", () => {
-      inputValidation(element, config.inputErrorClass, config.errorClass);
-      toggleButtonState(inputs, button, config.inactiveButtonClass);
-    });
+  form.forEach((formelm) => {
+    setEventListeners(
+      inputs,
+      button,
+      config.inputErrorClass,
+      config.errorClass,
+      config.inactiveButtonClass,
+      config.submitButtonSelector
+    );
   });
 
   hasInvalidInput(inputs);
   toggleButtonState(inputs, button, config.inactiveButtonClass);
+  inputValidation(element, config.inputErrorClass, config.errorClass);
+}
+
+function setEventListeners(
+  inputs,
+  button,
+  inputErrorClass,
+  errorClass,
+  inactiveButtonClass
+) {
+  inputs.forEach((element) => {
+    element.addEventListener("input", () => {
+      inputValidation(element, inputErrorClass, errorClass);
+      toggleButtonState(inputs, button, inactiveButtonClass);
+    });
+  });
 }
 
 function inputValidation(element, inputErrorClass, errorClass) {
