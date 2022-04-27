@@ -1,53 +1,44 @@
 function enableValidation(config) {
   const form = Array.from(document.querySelectorAll(config.formSelector));
 
-  const inputs = Array.from(document.querySelectorAll(config.inputSelector));
-
-  const button = Array.from(
-    document.querySelectorAll(config.submitButtonSelector)
-  );
-
   form.forEach((formelm) => {
-    setEventListeners(
-      inputs,
-      button,
-      config.inputErrorClass,
-      config.errorClass,
-      config.inactiveButtonClass,
-      config.submitButtonSelector
-    );
+    formelm.addEventListener("submit", (event) => {
+      event.preventDefault();
+    });
+    setEventListeners(formelm, config);
   });
-
-  hasInvalidInput(inputs);
-  toggleButtonState(inputs, button, config.inactiveButtonClass);
 }
 
-function setEventListeners(
-  inputs,
-  button,
-  inputErrorClass,
-  errorClass,
-  inactiveButtonClass
-) {
+function setEventListeners(formelm, config) {
+  const inputs = Array.from(formelm.querySelectorAll(config.inputSelector));
   inputs.forEach((element) => {
     element.addEventListener("input", () => {
-      inputValidation(element, inputErrorClass, errorClass);
-      toggleButtonState(inputs, button, inactiveButtonClass);
+      inputValidation(element, config);
+      toggleButtonState(formelm, config, inputs);
     });
   });
 }
 
-function inputValidation(element, inputErrorClass, errorClass) {
-  const errorNode = document.querySelector(`.${element.id}-error`);
+function inputValidation(element, config) {
   if (!element.validity.valid) {
-    element.classList.add(inputErrorClass);
-    errorNode.classList.add(errorClass);
-    errorNode.textContent = element.validationMessage;
+    showError(element, config);
   } else {
-    element.classList.remove(inputErrorClass);
-    errorNode.classList.remove(errorClass);
-    errorNode.textContent = "";
+    hideError(element, config);
   }
+}
+
+function showError(element, config) {
+  const errorNode = document.querySelector(`.${element.id}-error`);
+  element.classList.add(config.inputErrorClass);
+  errorNode.classList.add(config.errorClass);
+  errorNode.textContent = element.validationMessage;
+}
+
+function hideError(element, config) {
+  const errorNode = document.querySelector(`.${element.id}-error`);
+  element.classList.remove(config.inputErrorClass);
+  errorNode.classList.remove(config.errorClass);
+  errorNode.textContent = "";
 }
 
 function hasInvalidInput(inputs) {
@@ -56,13 +47,16 @@ function hasInvalidInput(inputs) {
   });
 }
 
-function toggleButtonState(inputs, button, inactiveButtonClass) {
+function toggleButtonState(formelm, config, inputs) {
+  const button = Array.from(
+    formelm.querySelectorAll(config.submitButtonSelector)
+  );
   button.forEach((btnEl) => {
     if (hasInvalidInput(inputs)) {
-      btnEl.classList.add(inactiveButtonClass);
+      btnEl.classList.add(config.inactiveButtonClass);
       btnEl.setAttribute("disabled", true);
     } else {
-      btnEl.classList.remove(inactiveButtonClass);
+      btnEl.classList.remove(config.inactiveButtonClass);
       btnEl.removeAttribute("disabled", true);
     }
   });
