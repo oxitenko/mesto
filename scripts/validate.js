@@ -62,6 +62,16 @@ function toggleButtonState(formelm, config, inputs) {
   });
 }
 
+function claenError(config, modalWindow) {
+  const formModal = modalWindow.querySelector(config.formSelector);
+  const inputsModal = Array.from(
+    modalWindow.querySelectorAll(config.inputSelector)
+  );
+  inputsModal.forEach((inputelm) => {
+    hideError(inputelm, config.inputErrorClass, config.errorClass, formModal);
+  });
+}
+
 enableValidation({
   formSelector: ".popup__form",
   inputSelector: ".popup__input",
