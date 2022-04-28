@@ -61,29 +61,33 @@
           action="#"
           novalidate
         >
-          <input
-            class="popup__input popup__input_enter_name"
-            type="text"
-            name="name"
-            id="name-input"
-            placeholder="Имя"
-            minlength="2"
-            maxlength="40"
-            required
-          />
-          <span class="name-input-error"></span>
+          <div class="popup__input-container">
+            <input
+              class="popup__input popup__input_enter_name"
+              type="text"
+              name="name"
+              id="name-input"
+              placeholder="Имя"
+              minlength="2"
+              maxlength="40"
+              required
+            />
+            <span class="name-input-error"></span>
+          </div>
 
-          <input
-            class="popup__input popup__input_enter_job"
-            type="text"
-            name="profi"
-            id="profi-input"
-            placeholder="О себе"
-            minlength="2"
-            maxlength="200"
-            required
-          />
-          <span class="profi-input-error"></span>
+          <div class="popup__input-container">
+            <input
+              class="popup__input popup__input_enter_job"
+              type="text"
+              name="profi"
+              id="profi-input"
+              placeholder="О себе"
+              minlength="2"
+              maxlength="200"
+              required
+            />
+            <span class="profi-input-error"></span>
+          </div>
 
           <button
             type="submit"
@@ -110,27 +114,31 @@
           action="#"
           novalidate
         >
-          <input
-            class="popup__input popup__input_enter_placename"
-            type="text"
-            name="placename"
-            id="placename-input"
-            placeholder="Название"
-            minlength="2"
-            maxlength="30"
-            required
-          />
-          <span class="placename-input-error"></span>
+          <div class="popup__input-container">
+            <input
+              class="popup__input popup__input_enter_placename"
+              type="text"
+              name="placename"
+              id="placename-input"
+              placeholder="Название"
+              minlength="2"
+              maxlength="30"
+              required
+            />
+            <span class="placename-input-error"></span>
+          </div>
 
-          <input
-            class="popup__input popup__input_enter_linkplace"
-            type="url"
-            name="linkplace"
-            id="linkplace-input"
-            placeholder="Ссылка на картинку"
-            required
-          />
-          <span class="linkplace-input-error"></span>
+          <div class="popup__input-container">
+            <input
+              class="popup__input popup__input_enter_linkplace"
+              type="url"
+              name="linkplace"
+              id="linkplace-input"
+              placeholder="Ссылка на картинку"
+              required
+            />
+            <span class="linkplace-input-error"></span>
+          </div>
 
           <button type="submit" class="popup__submit-button">Создать</button>
         </form>

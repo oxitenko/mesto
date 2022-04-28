@@ -24,14 +24,6 @@ const cardNameInput = document.querySelector(".popup__input_enter_placename");
 const cardLinkInput = document.querySelector(".popup__input_enter_linkplace");
 const popupViewPic = document.querySelector(".popup__pic");
 const popupViewCaption = document.querySelector(".popup__caption");
-const config = {
-  formSelector: ".popup__form",
-  inputSelector: ".popup__input",
-  submitButtonSelector: ".popup__submit-button",
-  inactiveButtonClass: "popup__submit-button_disabled",
-  inputErrorClass: "popup__input_type_error",
-  errorClass: "popup__error_visible",
-};
 
 const initialCards = [
   {
@@ -98,7 +90,25 @@ addCardsOnPage();
 function openModalWindow(modalWindow) {
   modalWindow.classList.add("popup_opened");
 
-  claenError(config, modalWindow);
+  document.addEventListener("keydown", (event) => {
+    if (
+      event.target.classList.contains("popup__opened") ||
+      event.key === "Escape"
+    ) {
+      closeModalWindow(modalWindow);
+    }
+  });
+
+  document.addEventListener("click", (event) => {
+    const overlay = Array.from(document.querySelectorAll(".popup"));
+    overlay.forEach((overlayelm) => {
+      if (event.target === overlayelm) {
+        closeModalWindow(modalWindow);
+      }
+    });
+  });
+
+  cleanError(config, modalWindow);
 }
 
 function closeModalWindow(modalWindow) {

@@ -1,3 +1,12 @@
+const config = {
+  formSelector: ".popup__form",
+  inputSelector: ".popup__input",
+  submitButtonSelector: ".popup__submit-button",
+  inactiveButtonClass: "popup__submit-button_disabled",
+  inputErrorClass: "popup__input_type_error",
+  errorClass: "popup__error_visible",
+};
+
 function enableValidation(config) {
   const form = Array.from(document.querySelectorAll(config.formSelector));
 
@@ -11,6 +20,7 @@ function enableValidation(config) {
 
 function setEventListeners(formelm, config) {
   const inputs = Array.from(formelm.querySelectorAll(config.inputSelector));
+  toggleButtonState(formelm, config, inputs);
   inputs.forEach((element) => {
     element.addEventListener("input", () => {
       inputValidation(element, config);
@@ -21,20 +31,20 @@ function setEventListeners(formelm, config) {
 
 function inputValidation(element, config) {
   if (!element.validity.valid) {
-    showError(element, config);
+    showError(element, config.inputErrorClass, config.errorClass);
   } else {
-    hideError(element, config);
+    hideError(element, config.inputErrorClass, config.errorClass);
   }
 }
 
-function showError(element, config) {
+function showError(element, inputErrorClass, errorClass) {
   const errorNode = document.querySelector(`.${element.id}-error`);
   element.classList.add(config.inputErrorClass);
   errorNode.classList.add(config.errorClass);
   errorNode.textContent = element.validationMessage;
 }
 
-function hideError(element, config) {
+function hideError(element, inputErrorClass, errorClass) {
   const errorNode = document.querySelector(`.${element.id}-error`);
   element.classList.remove(config.inputErrorClass);
   errorNode.classList.remove(config.errorClass);
@@ -62,21 +72,13 @@ function toggleButtonState(formelm, config, inputs) {
   });
 }
 
-function claenError(config, modalWindow) {
-  const formModal = modalWindow.querySelector(config.formSelector);
+function cleanError(config, modalWindow) {
   const inputsModal = Array.from(
     modalWindow.querySelectorAll(config.inputSelector)
   );
   inputsModal.forEach((inputelm) => {
-    hideError(inputelm, config.inputErrorClass, config.errorClass, formModal);
+    hideError(inputelm, config.inputErrorClass, config.errorClass);
   });
 }
 
-enableValidation({
-  formSelector: ".popup__form",
-  inputSelector: ".popup__input",
-  submitButtonSelector: ".popup__submit-button",
-  inactiveButtonClass: "popup__submit-button_disabled",
-  inputErrorClass: "popup__input_type_error",
-  errorClass: "popup__error_visible",
-});
+enableValidation(config);
