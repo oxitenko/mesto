@@ -1,4 +1,4 @@
-.elements__like {
+.template__like {
   background: url(../../../images/main-likeheart.svg);
   background-repeat: no-repeat;
   height: 19px;
@@ -8,6 +8,6 @@
   cursor: pointer;
 }
 
-.elements__like:hover {
+.template__like:hover {
   opacity: 0.6;
 }

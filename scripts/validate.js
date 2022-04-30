@@ -10,21 +10,21 @@ const config = {
 function enableValidation(config) {
   const form = Array.from(document.querySelectorAll(config.formSelector));
 
-  form.forEach((formelm) => {
-    formelm.addEventListener("submit", (event) => {
+  form.forEach((formElm) => {
+    formElm.addEventListener("submit", (event) => {
       event.preventDefault();
     });
-    setEventListeners(formelm, config);
+    setEventListeners(formElm, config);
   });
 }
 
-function setEventListeners(formelm, config) {
-  const inputs = Array.from(formelm.querySelectorAll(config.inputSelector));
-  toggleButtonState(formelm, config, inputs);
+function setEventListeners(formElm, config) {
+  const inputs = Array.from(formElm.querySelectorAll(config.inputSelector));
+  toggleButtonState(formElm, config, inputs);
   inputs.forEach((element) => {
     element.addEventListener("input", () => {
       inputValidation(element, config);
-      toggleButtonState(formelm, config, inputs);
+      toggleButtonState(formElm, config, inputs);
     });
   });
 }
@@ -57,17 +57,17 @@ function hasInvalidInput(inputs) {
   });
 }
 
-function toggleButtonState(formelm, config, inputs) {
+function toggleButtonState(formElm, config, inputs) {
   const button = Array.from(
-    formelm.querySelectorAll(config.submitButtonSelector)
+    formElm.querySelectorAll(config.submitButtonSelector)
   );
   button.forEach((btnEl) => {
     if (hasInvalidInput(inputs)) {
       btnEl.classList.add(config.inactiveButtonClass);
-      btnEl.setAttribute("disabled", true);
+      btnEl.setAttribute("disabled", "");
     } else {
       btnEl.classList.remove(config.inactiveButtonClass);
-      btnEl.removeAttribute("disabled", true);
+      btnEl.removeAttribute("disabled", "");
     }
   });
 }
@@ -76,8 +76,8 @@ function cleanError(config, modalWindow) {
   const inputsModal = Array.from(
     modalWindow.querySelectorAll(config.inputSelector)
   );
-  inputsModal.forEach((inputelm) => {
-    hideError(inputelm, config.inputErrorClass, config.errorClass);
+  inputsModal.forEach((inputElm) => {
+    hideError(inputElm, config.inputErrorClass, config.errorClass);
   });
 }
 

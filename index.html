@@ -45,7 +45,8 @@
     <footer class="footer">
       <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
     </footer>
-    <div class="popup popup_element-edit">
+
+    <div class="popup popup_type_edit-card">
       <div class="popup__content">
         <h2 class="popup__title">Редактировать профиль</h2>
         <button
@@ -99,7 +100,8 @@
         </form>
       </div>
     </div>
-    <div class="popup popup_element-add">
+
+    <div class="popup popup_type_add-card">
       <div class="popup__content">
         <h2 class="popup__title">Новое место</h2>
         <button
@@ -144,7 +146,8 @@
         </form>
       </div>
     </div>
-    <div class="popup popup_element-imgview">
+
+    <div class="popup popup_type_img-view">
       <div class="popup__content popup__content_element-imgview">
         <button
           class="popup__close-button popup__close-button_place_popupview"
@@ -155,25 +158,28 @@
         <div class="popup__caption"></div>
       </div>
     </div>
-    <template class="elements__template">
-      <li class="elements__item">
-        <img class="elements__pic" src="/" alt="/" />
+
+    <template class="template__card">
+      <li class="template__item">
+        <img class="template__pic" src="/" alt="/" />
         <button
-          class="elements__trashbox"
+          class="template__trashbox"
           type="button"
           aria-label="Удалить"
         ></button>
-        <div class="elements__head">
-          <h2 class="elements__title"></h2>
+        <div class="template__head">
+          <h2 class="template__title"></h2>
           <button
-            class="elements__like"
+            class="template__like"
             type="button"
             aria-label="Лайк"
           ></button>
         </div>
       </li>
     </template>
+
     <script src="./scripts/validate.js"></script>
+    <script src="./scripts/cards.js"></script>
     <script src="./scripts/index.js"></script>
   </body>
 </html>

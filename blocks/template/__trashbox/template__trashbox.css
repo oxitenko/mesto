@@ -1,4 +1,4 @@
-.elements__trashbox {
+.template__trashbox {
   background-image: url(../../../images/main-trashbox.svg);
   background-size: 18px 19px;
   background-color: transparent;
@@ -13,6 +13,6 @@
   top: 20px;
 }
 
-.elements__trashbox:hover {
+.template__trashbox:hover {
   opacity: 0.6;
 }

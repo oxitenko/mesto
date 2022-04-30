@@ -1,12 +1,12 @@
-const modalWindowEdit = document.querySelector(".popup_element-edit");
+const modalWindowEdit = document.querySelector(".popup_type_edit-card");
 const buttonCloseWindowEdit = modalWindowEdit.querySelector(
   ".popup__close-button"
 );
-const modalWindowAdd = document.querySelector(".popup_element-add");
+const modalWindowAdd = document.querySelector(".popup_type_add-card");
 const buttonCloseWindowAdd = modalWindowAdd.querySelector(
   ".popup__close-button"
 );
-const modalWindowView = document.querySelector(".popup_element-imgview");
+const modalWindowView = document.querySelector(".popup_type_img-view");
 const buttonCloseWindowView = modalWindowView.querySelector(
   ".popup__close-button"
 );
@@ -18,63 +18,31 @@ const jobInput = document.querySelector(".popup__input_enter_job");
 const profileName = document.querySelector(".profile__name");
 const profileJob = document.querySelector(".profile__profi");
 const cardsContainer = document.querySelector(".elements__container");
-const cardsTemplate = document.querySelector(".elements__template");
+const cardsTemplate = document.querySelector(".template__card");
 const buttonOpenWindowAdd = document.querySelector(".profile__button-add");
 const cardNameInput = document.querySelector(".popup__input_enter_placename");
 const cardLinkInput = document.querySelector(".popup__input_enter_linkplace");
 const popupViewPic = document.querySelector(".popup__pic");
 const popupViewCaption = document.querySelector(".popup__caption");
 
-const initialCards = [
-  {
-    name: "Хаконе",
-    link: "images/main-hakone.jpg",
-  },
-
-  {
-    name: "Нара",
-    link: "images/main-nara.jpg",
-  },
-
-  {
-    name: "Миядзима",
-    link: "images/main-miyajima.jpg",
-  },
-
-  {
-    name: "Гора Эльбрус",
-    link: "images/main-elbrus.png",
-  },
-
-  {
-    name: "Домбай",
-    link: "images/main-dombai.png",
-  },
-
-  {
-    name: "Карачаево-Черкессия",
-    link: "images/main-karachaevsk.jpg",
-  },
-];
-
 function addCardsOnPage() {
-  const wallRender = initialCards.map(getCards);
+  const wallRender = initialCards.map(getCard);
   cardsContainer.append(...wallRender);
 }
 
-function getCards(item) {
+function getCard(item) {
   const cardsElement = cardsTemplate.content.cloneNode(true);
-  const titleCard = cardsElement.querySelector(".elements__title");
-  const imageCard = cardsElement.querySelector(".elements__pic");
-  const buttonDeleteCard = cardsElement.querySelector(".elements__trashbox");
-  const buttonLikeCard = cardsElement.querySelector(".elements__like");
+  const titleCard = cardsElement.querySelector(".template__title");
+  const imageCard = cardsElement.querySelector(".template__pic");
+  const buttonDeleteCard = cardsElement.querySelector(".template__trashbox");
+  const buttonLikeCard = cardsElement.querySelector(".template__like");
 
   titleCard.textContent = item.name;
   imageCard.src = item.link;
   imageCard.alt = item.name;
 
-  buttonDeleteCard.addEventListener("click", handlerDeleteCard);
-  buttonLikeCard.addEventListener("click", handlerLikeCard);
+  buttonDeleteCard.addEventListener("click", handleDeleteCard);
+  buttonLikeCard.addEventListener("click", handleLikeCard);
   imageCard.addEventListener("click", function () {
     popupViewPic.src = item.link;
     popupViewPic.alt = item.name;
@@ -90,19 +58,12 @@ addCardsOnPage();
 function openModalWindow(modalWindow) {
   modalWindow.classList.add("popup_opened");
 
-  document.addEventListener("keydown", (event) => {
-    if (
-      event.target.classList.contains("popup__opened") ||
-      event.key === "Escape"
-    ) {
-      closeModalWindow(modalWindow);
-    }
-  });
+  document.addEventListener("keydown", closeOnEsc);
 
-  document.addEventListener("click", (event) => {
-    const overlay = Array.from(document.querySelectorAll(".popup"));
-    overlay.forEach((overlayelm) => {
-      if (event.target === overlayelm) {
+  const overlay = Array.from(document.querySelectorAll(".popup"));
+  overlay.forEach((overlayElm) => {
+    overlayElm.addEventListener("click", (event) => {
+      if (event.target === overlayElm) {
         closeModalWindow(modalWindow);
       }
     });
@@ -111,32 +72,40 @@ function openModalWindow(modalWindow) {
   cleanError(config, modalWindow);
 }
 
+function closeOnEsc(event) {
+  const modalWindowActive = document.querySelector(".popup_opened");
+  if (event.key === "Escape") {
+    closeModalWindow(modalWindowActive);
+  }
+}
+
 function closeModalWindow(modalWindow) {
   modalWindow.classList.remove("popup_opened");
+  document.removeEventListener("keydown", closeOnEsc);
 }
 
-function handlerDeleteCard(evt) {
-  const deletaCard = evt.target.closest(".elements__item");
-  deletaCard.remove();
+function handleDeleteCard(evt) {
+  const deleteCard = evt.target.closest(".template__item");
+  deleteCard.remove();
 }
 
-function handlerLikeCard(evt) {
-  evt.target.classList.toggle("elements__like_active");
+function handleLikeCard(evt) {
+  evt.target.classList.toggle("template__like_active");
 }
 
-function handlerAddNewCard(evt) {
+function handleAddNewCard(evt) {
   evt.preventDefault();
-  const newCardOnPage = getCards({
+  const newCardOnPage = getCard({
     name: cardNameInput.value,
     link: cardLinkInput.value,
   });
   cardsContainer.prepend(newCardOnPage);
+  closeModalWindow(modalWindowAdd);
   cardNameInput.value = "";
   cardLinkInput.value = "";
-  closeModalWindow(modalWindowAdd);
 }
 
-function handlerFillProfile(evt) {
+function handleFillProfile(evt) {
   evt.preventDefault();
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
@@ -150,18 +119,24 @@ buttonOpenWindowEdit.addEventListener("click", function () {
 });
 
 buttonOpenWindowAdd.addEventListener("click", function () {
+  const inputsAddCard = Array.from(
+    modalWindowAdd.querySelectorAll(".popup__input")
+  );
   openModalWindow(modalWindowAdd);
+  toggleButtonState(modalWindowAdd, config, inputsAddCard);
 });
 
 buttonCloseWindowEdit.addEventListener("click", function () {
   closeModalWindow(modalWindowEdit);
 });
+
 buttonCloseWindowAdd.addEventListener("click", function () {
   closeModalWindow(modalWindowAdd);
 });
+
 buttonCloseWindowView.addEventListener("click", function () {
   closeModalWindow(modalWindowView);
 });
 
-formProfileFill.addEventListener("submit", handlerFillProfile);
-formCardFill.addEventListener("submit", handlerAddNewCard);
+formProfileFill.addEventListener("submit", handleFillProfile);
+formCardFill.addEventListener("submit", handleAddNewCard);
