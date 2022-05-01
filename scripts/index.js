@@ -32,10 +32,10 @@ function addCardsOnPage() {
 
 function getCard(item) {
   const cardsElement = cardsTemplate.content.cloneNode(true);
-  const titleCard = cardsElement.querySelector(".template__title");
-  const imageCard = cardsElement.querySelector(".template__pic");
-  const buttonDeleteCard = cardsElement.querySelector(".template__trashbox");
-  const buttonLikeCard = cardsElement.querySelector(".template__like");
+  const titleCard = cardsElement.querySelector(".card__title");
+  const imageCard = cardsElement.querySelector(".card__pic");
+  const buttonDeleteCard = cardsElement.querySelector(".card__trashbox");
+  const buttonLikeCard = cardsElement.querySelector(".card__like");
 
   titleCard.textContent = item.name;
   imageCard.src = item.link;
@@ -58,39 +58,30 @@ addCardsOnPage();
 function openModalWindow(modalWindow) {
   modalWindow.classList.add("popup_opened");
 
-  document.addEventListener("keydown", closeOnEsc);
-
-  const overlay = Array.from(document.querySelectorAll(".popup"));
-  overlay.forEach((overlayElm) => {
-    overlayElm.addEventListener("click", (event) => {
-      if (event.target === overlayElm) {
-        closeModalWindow(modalWindow);
-      }
-    });
-  });
+  document.addEventListener("keydown", handleCloseOnEsc);
 
   cleanError(config, modalWindow);
 }
 
-function closeOnEsc(event) {
-  const modalWindowActive = document.querySelector(".popup_opened");
+function handleCloseOnEsc(event) {
   if (event.key === "Escape") {
+    const modalWindowActive = document.querySelector(".popup_opened");
     closeModalWindow(modalWindowActive);
   }
 }
 
 function closeModalWindow(modalWindow) {
   modalWindow.classList.remove("popup_opened");
-  document.removeEventListener("keydown", closeOnEsc);
+  document.removeEventListener("keydown", handleCloseOnEsc);
 }
 
 function handleDeleteCard(evt) {
-  const deleteCard = evt.target.closest(".template__item");
+  const deleteCard = evt.target.closest(".card");
   deleteCard.remove();
 }
 
 function handleLikeCard(evt) {
-  evt.target.classList.toggle("template__like_active");
+  evt.target.classList.toggle("card__like_active");
 }
 
 function handleAddNewCard(evt) {
@@ -140,3 +131,30 @@ buttonCloseWindowView.addEventListener("click", function () {
 
 formProfileFill.addEventListener("submit", handleFillProfile);
 formCardFill.addEventListener("submit", handleAddNewCard);
+
+modalWindowEdit.addEventListener("click", (event) => {
+  if (
+    event.target.classList.contains("popup") ||
+    event.target.classList.contains("popup_opened")
+  ) {
+    closeModalWindow(modalWindowEdit);
+  }
+});
+
+modalWindowAdd.addEventListener("click", (event) => {
+  if (
+    event.target.classList.contains("popup") ||
+    event.target.classList.contains("popup_opened")
+  ) {
+    closeModalWindow(modalWindowAdd);
+  }
+});
+
+modalWindowView.addEventListener("click", (event) => {
+  if (
+    event.target.classList.contains("popup") ||
+    event.target.classList.contains("popup_opened")
+  ) {
+    closeModalWindow(modalWindowView);
+  }
+});
