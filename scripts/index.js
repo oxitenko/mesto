@@ -1,8 +1,12 @@
-const modalWindowEdit = document.querySelector(".popup_type_edit-card");
+import { Card } from "./Card.js";
+import { initialCards } from "./cards.js";
+import { cardFormValidator, profileFormValidator } from "./validate.js";
+
+export const modalWindowEdit = document.querySelector(".popup_type_edit-card");
 const buttonCloseWindowEdit = modalWindowEdit.querySelector(
   ".popup__close-button"
 );
-const modalWindowAdd = document.querySelector(".popup_type_add-card");
+export const modalWindowAdd = document.querySelector(".popup_type_add-card");
 const buttonCloseWindowAdd = modalWindowAdd.querySelector(
   ".popup__close-button"
 );
@@ -17,50 +21,49 @@ const nameInput = document.querySelector(".popup__input_enter_name");
 const jobInput = document.querySelector(".popup__input_enter_job");
 const profileName = document.querySelector(".profile__name");
 const profileJob = document.querySelector(".profile__profi");
-const cardsContainer = document.querySelector(".elements__container");
-const cardsTemplate = document.querySelector(".template__card");
 const buttonOpenWindowAdd = document.querySelector(".profile__button-add");
 const cardNameInput = document.querySelector(".popup__input_enter_placename");
 const cardLinkInput = document.querySelector(".popup__input_enter_linkplace");
 const popupViewPic = document.querySelector(".popup__pic");
 const popupViewCaption = document.querySelector(".popup__caption");
+const cardsContainer = document.querySelector(".elements__container");
 
-function addCardsOnPage() {
-  const wallRender = initialCards.map(getCard);
-  cardsContainer.append(...wallRender);
+initialCards.forEach((data) => {
+  const card = new Card(data, ".template__card", ".card__pic", (item) =>
+    handleOpenImagePopup(item)
+  );
+  const cardElement = card.generateCard();
+
+  cardsContainer.append(cardElement);
+});
+
+function handleOpenImagePopup(item) {
+  popupViewPic.src = item.link;
+  popupViewPic.alt = item.name;
+  popupViewCaption.textContent = item.name;
+  openModalWindow(modalWindowView);
 }
 
-function getCard(item) {
-  const cardsElement = cardsTemplate.content.cloneNode(true);
-  const titleCard = cardsElement.querySelector(".card__title");
-  const imageCard = cardsElement.querySelector(".card__pic");
-  const buttonDeleteCard = cardsElement.querySelector(".card__trashbox");
-  const buttonLikeCard = cardsElement.querySelector(".card__like");
-
-  titleCard.textContent = item.name;
-  imageCard.src = item.link;
-  imageCard.alt = item.name;
-
-  buttonDeleteCard.addEventListener("click", handleDeleteCard);
-  buttonLikeCard.addEventListener("click", handleLikeCard);
-  imageCard.addEventListener("click", function () {
-    popupViewPic.src = item.link;
-    popupViewPic.alt = item.name;
-    popupViewCaption.textContent = item.name;
-    openModalWindow(modalWindowView);
-  });
-
-  return cardsElement;
+function handleAddNewCard(evt) {
+  evt.preventDefault();
+  const elementCard = new Card(
+    { name: cardNameInput.value, link: cardLinkInput.value },
+    ".template__card",
+    ".card__pic",
+    (item) => handleOpenImagePopup(item)
+  );
+  const newCardOnPage = elementCard.generateCard();
+  cardsContainer.append(newCardOnPage);
+  closeModalWindow(modalWindowAdd);
+  cardNameInput.value = "";
+  cardLinkInput.value = "";
 }
-
-addCardsOnPage();
 
 function openModalWindow(modalWindow) {
   modalWindow.classList.add("popup_opened");
-
   document.addEventListener("keydown", handleCloseOnEsc);
-
-  cleanError(config, modalWindow);
+  cardFormValidator.resetValidation();
+  profileFormValidator.resetValidation();
 }
 
 function handleCloseOnEsc(event) {
@@ -73,27 +76,6 @@ function handleCloseOnEsc(event) {
 function closeModalWindow(modalWindow) {
   modalWindow.classList.remove("popup_opened");
   document.removeEventListener("keydown", handleCloseOnEsc);
-}
-
-function handleDeleteCard(evt) {
-  const deleteCard = evt.target.closest(".card");
-  deleteCard.remove();
-}
-
-function handleLikeCard(evt) {
-  evt.target.classList.toggle("card__like_active");
-}
-
-function handleAddNewCard(evt) {
-  evt.preventDefault();
-  const newCardOnPage = getCard({
-    name: cardNameInput.value,
-    link: cardLinkInput.value,
-  });
-  cardsContainer.prepend(newCardOnPage);
-  closeModalWindow(modalWindowAdd);
-  cardNameInput.value = "";
-  cardLinkInput.value = "";
 }
 
 function handleFillProfile(evt) {
@@ -114,7 +96,6 @@ buttonOpenWindowAdd.addEventListener("click", function () {
     modalWindowAdd.querySelectorAll(".popup__input")
   );
   openModalWindow(modalWindowAdd);
-  toggleButtonState(modalWindowAdd, config, inputsAddCard);
 });
 
 buttonCloseWindowEdit.addEventListener("click", function () {
