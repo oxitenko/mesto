@@ -1,13 +1,11 @@
 export class FormValidator {
-  constructor(config, elementForm) {
+  constructor(config, elementForm, inputs) {
     this._config = config;
     this._elementForm = elementForm;
+    this._inputs = inputs;
   }
 
   _setEventListeners() {
-    this._inputs = Array.from(
-      this._elementForm.querySelectorAll(this._config.inputSelector)
-    );
     this._toggleButtonState();
     this._inputs.forEach((inputEl) => {
       inputEl.addEventListener("input", () => {
@@ -61,9 +59,6 @@ export class FormValidator {
   }
 
   _cleanError() {
-    this._inputs = Array.from(
-      this._elementForm.querySelectorAll(this._config.inputSelector)
-    );
     this._inputs.forEach((inputEl) => {
       this._hideError(inputEl);
     });

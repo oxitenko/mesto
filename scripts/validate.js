@@ -1,4 +1,11 @@
-import { modalWindowAdd, modalWindowEdit } from "./index.js";
+import {
+  modalWindowAdd,
+  modalWindowEdit,
+  nameInput,
+  jobInput,
+  cardNameInput,
+  cardLinkInput,
+} from "./index.js";
 import { FormValidator } from "./FormValidator.js";
 
 const config = {
@@ -10,7 +17,13 @@ const config = {
   errorClass: "popup__error_visible",
 };
 
-export const cardFormValidator = new FormValidator(config, modalWindowAdd);
-export const profileFormValidator = new FormValidator(config, modalWindowEdit);
+export const cardFormValidator = new FormValidator(config, modalWindowAdd, [
+  cardNameInput,
+  cardLinkInput,
+]);
+export const profileFormValidator = new FormValidator(config, modalWindowEdit, [
+  nameInput,
+  jobInput,
+]);
 cardFormValidator.enableValidation();
 profileFormValidator.enableValidation();
