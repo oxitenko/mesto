@@ -1,32 +1,39 @@
+import cardHakone from "../images/main-hakone.jpg";
+import cardNara from "../images/main-nara.jpg";
+import cardMiyadzima from "../images/main-miyajima.jpg";
+import cardElbrus from "../images/main-elbrus.png";
+import cardDombai from "../images/main-dombai.png";
+import cardKarachaevsk from "../images/main-karachaevsk.jpg";
+
 export const initialCards = [
   {
     name: "Хаконе",
-    link: "images/main-hakone.jpg",
+    link: cardHakone,
   },
 
   {
     name: "Нара",
-    link: "images/main-nara.jpg",
+    link: cardNara,
   },
 
   {
     name: "Миядзима",
-    link: "images/main-miyajima.jpg",
+    link: cardMiyadzima,
   },
 
   {
     name: "Гора Эльбрус",
-    link: "images/main-elbrus.png",
+    link: cardElbrus,
   },
 
   {
     name: "Домбай",
-    link: "images/main-dombai.png",
+    link: cardDombai,
   },
 
   {
     name: "Карачаево-Черкессия",
-    link: "images/main-karachaevsk.jpg",
+    link: cardKarachaevsk,
   },
 ];
 
