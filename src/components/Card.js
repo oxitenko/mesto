@@ -1,11 +1,11 @@
 export class Card {
-  constructor(data, cardSelector, imageSelector, handleCardPhotoClick) {
+  constructor(data, cardSelector, imageSelector, { handleCardClick }) {
     this._data = data;
     this._name = data.name;
     this._link = data.link;
     this._cardSelector = cardSelector;
     this._imageSelector = imageSelector;
-    this._handleCardPhotoClick = handleCardPhotoClick;
+    this._handleCardClick = handleCardClick;
   }
 
   _getTemplate() {
@@ -37,7 +37,7 @@ export class Card {
     });
     this._element
       .querySelector(this._imageSelector)
-      .addEventListener("click", () => this._handleCardPhotoClick(this._data));
+      .addEventListener("click", () => this._handleCardClick(this._data));
   }
 
   generateCard() {

@@ -1,0 +1,67 @@
+export const initialCards = [
+  {
+    name: "Хаконе",
+    link: "images/main-hakone.jpg",
+  },
+
+  {
+    name: "Нара",
+    link: "images/main-nara.jpg",
+  },
+
+  {
+    name: "Миядзима",
+    link: "images/main-miyajima.jpg",
+  },
+
+  {
+    name: "Гора Эльбрус",
+    link: "images/main-elbrus.png",
+  },
+
+  {
+    name: "Домбай",
+    link: "images/main-dombai.png",
+  },
+
+  {
+    name: "Карачаево-Черкессия",
+    link: "images/main-karachaevsk.jpg",
+  },
+];
+
+export const config = {
+  formSelector: ".popup__form",
+  inputSelector: ".popup__input",
+  submitButtonSelector: ".popup__submit-button",
+  inactiveButtonClass: "popup__submit-button_disabled",
+  inputErrorClass: "popup__input_type_error",
+  errorClass: "popup__error_visible",
+};
+
+export const modalWindowEdit = document.querySelector(".popup_type_edit-card");
+export const modalWindowAdd = document.querySelector(".popup_type_add-card");
+export const modalWindowView = document.querySelector(".popup_type_img-view");
+export const buttonOpenWindowEdit = document.querySelector(
+  ".profile__button-edit"
+);
+export const nameInput = document.querySelector(".popup__input_enter_name");
+export const jobInput = document.querySelector(".popup__input_enter_job");
+export const buttonOpenWindowAdd = document.querySelector(
+  ".profile__button-add"
+);
+export const cardNameInput = document.querySelector(
+  ".popup__input_enter_placename"
+);
+export const cardLinkInput = document.querySelector(
+  ".popup__input_enter_linkplace"
+);
+
+export const imageSelector = ".popup__pic";
+export const captionSelector = ".popup__caption";
+export const cardsContainer = ".elements__container";
+export const popupWithAddForm = ".popup_type_add-card";
+export const popupWithImage = ".popup_type_img-view";
+export const popupWithEditForm = ".popup_type_edit-card";
+export const nameSelector = ".profile__name";
+export const profiSelector = ".profile__profi";

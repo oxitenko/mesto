@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./pages/index.css" />
     <title>Mesto</title>
   </head>
   <body class="page">
@@ -12,7 +11,7 @@
       <a href="#"
         ><img
           class="header__logo"
-          src="./images/header-logo.svg"
+          src="<%=require('./images/header-logo.svg')%>"
           alt="логотип страницы"
       /></a>
     </header>
@@ -20,7 +19,7 @@
       <section class="profile">
         <img
           class="profile__avatar"
-          src="./images/profile-avatar.png"
+          src="<%=require('./images/profile-avatar.png')%>"
           alt="Аватар страницы"
         />
         <div class="profile__item">
@@ -173,13 +172,5 @@
         </div>
       </li>
     </template>
-
-    <script type="module" src="./scripts/PopupWithImage.js"></script>
-    <script type="module" src="./scripts/Section.js"></script>
-    <script type="module" src="./scripts/Card.js"></script>
-    <script type="module" src="./scripts/FormValidator.js"></script>
-    <script type="module" src="./scripts/validate.js"></script>
-    <script type="module" src="./scripts/cards.js"></script>
-    <script type="module" src="./scripts/index.js"></script>
   </body>
 </html>
