@@ -19,8 +19,6 @@ import {
   popupWithEditForm,
   nameSelector,
   profiSelector,
-  cardNameInput,
-  cardLinkInput,
 } from "../utils/constants.js";
 import { FormValidator } from "../components/FormValidator.js";
 import { Section } from "../components/Section.js";
@@ -29,7 +27,7 @@ import { PopupWithImage } from "../components/PopupWithImage.js";
 import { UserInfo } from "../components/UserInfo.js";
 
 const createCardSample = (data) => {
-  const card = new Card(data, ".template__card", ".card__pic", {
+  const card = new Card(data, ".template__card", {
     handleCardClick: () => {
       popupViewImg.open(data);
     },
@@ -94,13 +92,7 @@ buttonOpenWindowAdd.addEventListener("click", () => {
   cardFormValidator.resetValidation();
 });
 
-const cardFormValidator = new FormValidator(config, modalWindowAdd, [
-  cardNameInput,
-  cardLinkInput,
-]);
-const profileFormValidator = new FormValidator(config, modalWindowEdit, [
-  nameInput,
-  jobInput,
-]);
+const cardFormValidator = new FormValidator(config, modalWindowAdd);
+const profileFormValidator = new FormValidator(config, modalWindowEdit);
 cardFormValidator.enableValidation();
 profileFormValidator.enableValidation();

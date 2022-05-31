@@ -57,12 +57,6 @@ export const jobInput = document.querySelector(".popup__input_enter_job");
 export const buttonOpenWindowAdd = document.querySelector(
   ".profile__button-add"
 );
-export const cardNameInput = document.querySelector(
-  ".popup__input_enter_placename"
-);
-export const cardLinkInput = document.querySelector(
-  ".popup__input_enter_linkplace"
-);
 
 export const imageSelector = ".popup__pic";
 export const captionSelector = ".popup__caption";

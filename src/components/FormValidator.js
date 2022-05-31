@@ -1,8 +1,10 @@
 export class FormValidator {
-  constructor(config, elementForm, inputs) {
+  constructor(config, elementForm) {
     this._config = config;
     this._elementForm = elementForm;
-    this._inputs = inputs;
+    this._inputs = Array.from(
+      this._elementForm.querySelectorAll(".popup__input")
+    );
   }
 
   _setEventListeners() {
@@ -44,18 +46,16 @@ export class FormValidator {
   }
 
   _toggleButtonState() {
-    const button = Array.from(
-      this._elementForm.querySelectorAll(this._config.submitButtonSelector)
+    this._buttonSabmit = this._elementForm.querySelector(
+      ".popup__submit-button"
     );
-    button.forEach((btnEl) => {
-      if (this._hasInvalidInput(this._inputs)) {
-        btnEl.classList.add(this._config.inactiveButtonClass);
-        btnEl.setAttribute("disabled", "");
-      } else {
-        btnEl.classList.remove(this._config.inactiveButtonClass);
-        btnEl.removeAttribute("disabled", "");
-      }
-    });
+    if (this._hasInvalidInput(this._inputs)) {
+      this._buttonSabmit.classList.add(this._config.inactiveButtonClass);
+      this._buttonSabmit.setAttribute("disabled", "");
+    } else {
+      this._buttonSabmit.classList.remove(this._config.inactiveButtonClass);
+      this._buttonSabmit.removeAttribute("disabled", "");
+    }
   }
 
   _cleanError() {
