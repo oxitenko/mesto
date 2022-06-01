@@ -3,7 +3,10 @@ export class FormValidator {
     this._config = config;
     this._elementForm = elementForm;
     this._inputs = Array.from(
-      this._elementForm.querySelectorAll(".popup__input")
+      this._elementForm.querySelectorAll(config.inputSelector)
+    );
+    this._buttonSabmit = this._elementForm.querySelector(
+      config.submitButtonSelector
     );
   }
 
@@ -46,9 +49,6 @@ export class FormValidator {
   }
 
   _toggleButtonState() {
-    this._buttonSabmit = this._elementForm.querySelector(
-      ".popup__submit-button"
-    );
     if (this._hasInvalidInput(this._inputs)) {
       this._buttonSabmit.classList.add(this._config.inactiveButtonClass);
       this._buttonSabmit.setAttribute("disabled", "");

@@ -34,7 +34,7 @@ export class Card {
     this._buttonLike.addEventListener("click", () => {
       this._handleLikeCard();
     });
-    this._imageSelector.addEventListener("click", () =>
+    this._imageCard.addEventListener("click", () =>
       this._handleCardClick(this._data)
     );
   }
@@ -42,10 +42,10 @@ export class Card {
   generateCard() {
     this._element = this._getTemplate();
     this._buttonLike = this._element.querySelector(".card__like");
-    this._imageSelector = this._element.querySelector(".card__pic");
+    this._imageCard = this._element.querySelector(".card__pic");
     this._element.querySelector(".card__title").textContent = this._name;
-    this._imageSelector.src = this._link;
-    this._imageSelector.alt = this._name;
+    this._imageCard.src = this._link;
+    this._imageCard.alt = this._name;
 
     this._setEventListeners();
 
