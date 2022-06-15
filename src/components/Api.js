@@ -7,17 +7,19 @@ export class Api {
     };
   }
 
+  _confirmStatusOk(res) {
+    if (res.ok) {
+      return res.json();
+    } else {
+      return Promise.reject(`Ошибка: ${res.status}`);
+    }
+  }
+
   getCards() {
     return fetch(`${this._url}/cards`, {
       method: "GET",
       headers: this._headers,
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-
-      return Promise.reject("Возникла ошибка");
-    });
+    }).then(this._confirmStatusOk);
   }
 
   postNewCard(data) {
@@ -25,29 +27,17 @@ export class Api {
       method: "POST",
       headers: this._headers,
       body: JSON.stringify({
-        name: data.name,
-        link: data.link,
+        name: data.placename,
+        link: data.linkplace,
       }),
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-
-      return Promise.reject("Возникла ошибка");
-    });
+    }).then(this._confirmStatusOk);
   }
 
   getUserInfo() {
     return fetch(`${this._url}/users/me`, {
       method: "GET",
       headers: this._headers,
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-
-      return Promise.reject("Возникла ошибка");
-    });
+    }).then(this._confirmStatusOk);
   }
 
   editUserInfo(data) {
@@ -58,13 +48,7 @@ export class Api {
         name: data.name,
         about: data.profi,
       }),
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-
-      return Promise.reject("Возникла ошибка");
-    });
+    }).then(this._confirmStatusOk);
   }
 
   editUserAvatar(data) {
@@ -74,22 +58,27 @@ export class Api {
       body: JSON.stringify({
         avatar: data.avatar,
       }),
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-
-      return Promise.reject("Возникла ошибка");
-    });
+    }).then(this._confirmStatusOk);
   }
 
   likeCard(data) {
     return fetch(`${this._url}/cards/${data._id}/likes`, {
       method: "PUT",
       headers: this._headers,
-      body: JSON.stringify({
-        likes: data.likes,
-      }),
-    });
+    }).then(this._confirmStatusOk);
+  }
+
+  deleteLike(data) {
+    return fetch(`${this._url}/cards/${data._id}/likes`, {
+      method: "DELETE",
+      headers: this._headers,
+    }).then(this._confirmStatusOk);
+  }
+
+  deleteCard(data) {
+    return fetch(`${this._url}/cards/${data._data._id}`, {
+      method: "DELETE",
+      headers: this._headers,
+    }).then(this._confirmStatusOk);
   }
 }

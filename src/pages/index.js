@@ -22,6 +22,9 @@ import {
   popupWithEditAvatar,
   buttonOpenUpdateAvatar,
   modalWindowUpdateAvatar,
+  buttonOpenDeleteCard,
+  modalWindowDeleteCardConfirm,
+  popupWithDeleteForm,
 } from "../utils/constants.js";
 import { FormValidator } from "../components/FormValidator.js";
 import { Section } from "../components/Section.js";
@@ -29,22 +32,44 @@ import { PopupWithForm } from "../components/PopupWithForm.js";
 import { PopupWithImage } from "../components/PopupWithImage.js";
 import { UserInfo } from "../components/UserInfo.js";
 import { Api } from "../components/Api.js";
+import { PopupWithConfirm } from "../components/PopupWithConfirm.js";
 
 const api = new Api("https://mesto.nomoreparties.co/v1/cohort-43");
 
 const createCardSample = (data) => {
-  const card = new Card(data, ".template__card", {
+  const card = new Card(data, ".template__card", "80caf813de9e0cc14bdfef23", {
     handleCardClick: () => {
       popupViewImg.open(data);
     },
+    handleLikeCard: (data) => {
+      api
+        .likeCard(data)
+        .then((res) => card.handleLikeCount(res))
+        .catch((err) => console.log(err));
+    },
+    handleDeleteLike: (data) => {
+      api
+        .deleteLike(data)
+        .then((res) => card.handleLikeCount(res))
+        .catch((err) => console.log(err));
+    },
+    handleDeleteCard: (data) => {
+      popupDeleteCard.open();
+      popupDeleteCard.setSubmitAction(() => {
+        api
+          .deleteCard(data)
+          .then(() => card.deleteCard())
+          .catch((err) => console.log(err));
+        popupDeleteCard.close();
+      });
+    },
   });
-  api
-    .likeCard(data)
-    .then((res) => card.handleLikeCount(res))
-    .catch((err) => console.log(err));
   const cardElement = card.generateCard();
   return cardElement;
 };
+
+const popupDeleteCard = new PopupWithConfirm(popupWithDeleteForm);
+popupDeleteCard.setEventListeners();
 
 const cardList = new Section(
   {
@@ -63,15 +88,18 @@ api
 
 const popupAddCard = new PopupWithForm(popupWithAddForm, {
   handleFormSubmit: (data) => {
-    const inputs = { name: data.placename, link: data.linkplace };
+    popupAddCard.updateLoading(true, "Создать");
     api
-      .postNewCard(inputs)
-      .then((inputs) => {
-        const card = createCardSample(inputs);
+      .postNewCard(data)
+      .then((res) => {
+        const card = createCardSample(res);
         cardList.addItem(card);
       })
-      .catch((err) => console.log(err));
-    popupAddCard.close();
+      .catch((err) => console.log(err))
+      .finally(() => {
+        popupAddCard.updateLoading(false, "Создать");
+        popupAddCard.close();
+      });
   },
 });
 
@@ -96,11 +124,15 @@ api
 
 const popupEditProfile = new PopupWithForm(popupWithEditForm, {
   handleFormSubmit: (data) => {
+    popupEditProfile.updateLoading(true);
     api
       .editUserInfo(data)
       .then((res) => user.setUserInfo(res))
-      .catch((err) => console.log(err));
-    popupEditProfile.close();
+      .catch((err) => console.log(err))
+      .finally(() => {
+        popupEditProfile.updateLoading(false);
+        popupEditProfile.close();
+      });
   },
 });
 
@@ -108,11 +140,15 @@ popupEditProfile.setEventListeners();
 
 const popupEditUserAvatar = new PopupWithForm(popupWithEditAvatar, {
   handleFormSubmit: (data) => {
+    popupEditUserAvatar.updateLoading(true);
     api
       .editUserAvatar(data)
       .then((res) => user.editUserAvatar(res))
-      .catch((err) => console.log(err));
-    popupEditUserAvatar.close();
+      .catch((err) => console.log(err))
+      .finally(() => {
+        popupEditUserAvatar.updateLoading(false);
+        popupEditUserAvatar.close();
+      });
   },
 });
 

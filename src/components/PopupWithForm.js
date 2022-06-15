@@ -8,6 +8,19 @@ export class PopupWithForm extends Popup {
     this._inputList = Array.from(
       this._popupForm.querySelectorAll(".popup__input")
     );
+    this._buttonSubmit = this._popupForm.querySelector(".popup__submit-button");
+  }
+
+  updateLoading(
+    isLoading,
+    messageInitial = "Сохранить",
+    messageLoading = "Сохранение..."
+  ) {
+    if (isLoading) {
+      this._buttonSubmit.textContent = messageLoading;
+    } else {
+      this._buttonSubmit.textContent = messageInitial;
+    }
   }
 
   _getInputValues() {

@@ -24,6 +24,12 @@ export const buttonOpenWindowAdd = document.querySelector(
 export const buttonOpenUpdateAvatar = document.querySelector(
   ".profile__avatar_style_hover"
 );
+export const modalWindowDeleteCardConfirm = document.querySelector(
+  ".popup_type_delete_card"
+);
+
+export const buttonOpenDeleteCard =
+  document.querySelectorAll(".card__trashbox");
 
 export const imageSelector = ".popup__pic";
 export const captionSelector = ".popup__caption";
@@ -35,3 +41,4 @@ export const popupWithEditAvatar = ".popup_type_update_avatar";
 export const nameSelector = ".profile__name";
 export const profiSelector = ".profile__profi";
 export const avatarSelector = ".profile__avatar";
+export const popupWithDeleteForm = ".popup_type_delete_card";
