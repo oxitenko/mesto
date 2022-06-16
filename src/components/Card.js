@@ -31,6 +31,13 @@ export class Card {
     this._element = null;
   }
 
+  _isLikeState() {
+    const myLike = this._data.likes.some((item) => item._id === this._myID);
+    if (myLike === true) {
+      this._buttonLike.classList.add("card__like_active");
+    }
+  }
+
   _checkLikeOwner() {
     this._data.likes.forEach((item) => {
       if (item._id === this._owner) {
@@ -87,6 +94,7 @@ export class Card {
     this._checkLikeOwner();
     this.handleLikeCount(this._data);
     this._chekCardOwner();
+    this._isLikeState();
 
     this._setEventListeners();
 

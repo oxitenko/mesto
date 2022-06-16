@@ -14,7 +14,7 @@ export const buttonOpenWindowEdit = document.querySelector(
   ".profile__button-edit"
 );
 export const modalWindowUpdateAvatar = document.querySelector(
-  ".popup_type_update_avatar"
+  ".popup_type_update-avatar"
 );
 export const nameInput = document.querySelector(".popup__input_enter_name");
 export const jobInput = document.querySelector(".popup__input_enter_job");
@@ -22,10 +22,10 @@ export const buttonOpenWindowAdd = document.querySelector(
   ".profile__button-add"
 );
 export const buttonOpenUpdateAvatar = document.querySelector(
-  ".profile__avatar_style_hover"
+  ".profile__container"
 );
 export const modalWindowDeleteCardConfirm = document.querySelector(
-  ".popup_type_delete_card"
+  ".popup_type_delete-card"
 );
 
 export const buttonOpenDeleteCard =
@@ -37,8 +37,8 @@ export const cardsContainer = ".elements__container";
 export const popupWithAddForm = ".popup_type_add-card";
 export const popupWithImage = ".popup_type_img-view";
 export const popupWithEditForm = ".popup_type_edit-card";
-export const popupWithEditAvatar = ".popup_type_update_avatar";
+export const popupWithEditAvatar = ".popup_type_update-avatar";
 export const nameSelector = ".profile__name";
 export const profiSelector = ".profile__profi";
 export const avatarSelector = ".profile__avatar";
-export const popupWithDeleteForm = ".popup_type_delete_card";
+export const popupWithDeleteForm = ".popup_type_delete-card";
