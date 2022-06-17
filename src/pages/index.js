@@ -44,13 +44,13 @@ const createCardSample = (data) => {
     handleLikeCard: (data) => {
       api
         .likeCard(data)
-        .then((res) => card.handleLikeCount(res))
+        .then((res) => card.isLikeState(res))
         .catch((err) => console.log(err));
     },
     handleDeleteLike: (data) => {
       api
         .deleteLike(data)
-        .then((res) => card.handleLikeCount(res))
+        .then((res) => card.isLikeState(res))
         .catch((err) => console.log(err));
     },
     handleDeleteCard: (data) => {
@@ -83,7 +83,9 @@ const cardList = new Section(
 
 api
   .getCards()
-  .then((cards) => cardList.renderItems(cards))
+  .then((cards) => {
+    cardList.renderItems(cards);
+  })
   .catch((err) => console.log(err));
 
 const popupAddCard = new PopupWithForm(popupWithAddForm, {
