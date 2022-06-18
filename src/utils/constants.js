@@ -28,9 +28,6 @@ export const modalWindowDeleteCardConfirm = document.querySelector(
   ".popup_type_delete-card"
 );
 
-export const buttonOpenDeleteCard =
-  document.querySelectorAll(".card__trashbox");
-
 export const imageSelector = ".popup__pic";
 export const captionSelector = ".popup__caption";
 export const cardsContainer = ".elements__container";

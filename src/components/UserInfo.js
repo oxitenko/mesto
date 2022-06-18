@@ -14,10 +14,6 @@ export class UserInfo {
     return data;
   }
 
-  editUserAvatar(data) {
-    this._avatar.src = data.avatar;
-  }
-
   setUserInfo(data) {
     this._name.textContent = data.name;
     this._profi.textContent = data.about;

@@ -22,7 +22,6 @@ import {
   popupWithEditAvatar,
   buttonOpenUpdateAvatar,
   modalWindowUpdateAvatar,
-  buttonOpenDeleteCard,
   modalWindowDeleteCardConfirm,
   popupWithDeleteForm,
 } from "../utils/constants.js";
@@ -33,24 +32,33 @@ import { PopupWithImage } from "../components/PopupWithImage.js";
 import { UserInfo } from "../components/UserInfo.js";
 import { Api } from "../components/Api.js";
 import { PopupWithConfirm } from "../components/PopupWithConfirm.js";
+let userID = null;
 
 const api = new Api("https://mesto.nomoreparties.co/v1/cohort-43");
 
+Promise.all([api.getUserInfo(), api.getCards()])
+  .then(([userData, cards]) => {
+    userID = userData._id;
+    user.setUserInfo(userData);
+    cardList.renderItems(cards);
+  })
+  .catch((err) => console.log(err));
+
 const createCardSample = (data) => {
-  const card = new Card(data, ".template__card", "80caf813de9e0cc14bdfef23", {
+  const card = new Card(data, ".template__card", userID, {
     handleCardClick: () => {
       popupViewImg.open(data);
     },
     handleLikeCard: (data) => {
       api
         .likeCard(data)
-        .then((res) => card.isLikeState(res))
+        .then((res) => card.likeCard(res))
         .catch((err) => console.log(err));
     },
     handleDeleteLike: (data) => {
       api
         .deleteLike(data)
-        .then((res) => card.isLikeState(res))
+        .then((res) => card.deleteLike(res))
         .catch((err) => console.log(err));
     },
     handleDeleteCard: (data) => {
@@ -58,9 +66,11 @@ const createCardSample = (data) => {
       popupDeleteCard.setSubmitAction(() => {
         api
           .deleteCard(data)
-          .then(() => card.deleteCard())
+          .then(() => {
+            card.deleteCard();
+            popupDeleteCard.close();
+          })
           .catch((err) => console.log(err));
-        popupDeleteCard.close();
       });
     },
   });
@@ -81,13 +91,6 @@ const cardList = new Section(
   cardsContainer
 );
 
-api
-  .getCards()
-  .then((cards) => {
-    cardList.renderItems(cards);
-  })
-  .catch((err) => console.log(err));
-
 const popupAddCard = new PopupWithForm(popupWithAddForm, {
   handleFormSubmit: (data) => {
     popupAddCard.updateLoading(true, "Создать");
@@ -96,11 +99,11 @@ const popupAddCard = new PopupWithForm(popupWithAddForm, {
       .then((res) => {
         const card = createCardSample(res);
         cardList.addItem(card);
+        popupAddCard.close();
       })
       .catch((err) => console.log(err))
       .finally(() => {
         popupAddCard.updateLoading(false, "Создать");
-        popupAddCard.close();
       });
   },
 });
@@ -117,23 +120,18 @@ popupViewImg.setEventListeners();
 
 const user = new UserInfo(nameSelector, profiSelector, avatarSelector);
 
-api
-  .getUserInfo()
-  .then((userData) => {
-    user.setUserInfo(userData);
-  })
-  .catch((err) => console.log(err));
-
 const popupEditProfile = new PopupWithForm(popupWithEditForm, {
   handleFormSubmit: (data) => {
     popupEditProfile.updateLoading(true);
     api
       .editUserInfo(data)
-      .then((res) => user.setUserInfo(res))
+      .then((res) => {
+        user.setUserInfo(res);
+        popupEditProfile.close();
+      })
       .catch((err) => console.log(err))
       .finally(() => {
         popupEditProfile.updateLoading(false);
-        popupEditProfile.close();
       });
   },
 });
@@ -145,11 +143,13 @@ const popupEditUserAvatar = new PopupWithForm(popupWithEditAvatar, {
     popupEditUserAvatar.updateLoading(true);
     api
       .editUserAvatar(data)
-      .then((res) => user.editUserAvatar(res))
+      .then((res) => {
+        user.setUserInfo(res);
+        popupEditUserAvatar.close();
+      })
       .catch((err) => console.log(err))
       .finally(() => {
         popupEditUserAvatar.updateLoading(false);
-        popupEditUserAvatar.close();
       });
   },
 });
@@ -162,13 +162,9 @@ buttonOpenUpdateAvatar.addEventListener("click", () => {
 });
 
 buttonOpenWindowEdit.addEventListener("click", () => {
-  api
-    .getUserInfo()
-    .then((res) => {
-      nameInput.value = res.name;
-      jobInput.value = res.about;
-    })
-    .catch((err) => console.log(err));
+  const userData = user.getUserInfo();
+  nameInput.value = userData.name;
+  jobInput.value = userData.about;
   popupEditProfile.open();
   profileFormValidator.resetValidation();
 });
