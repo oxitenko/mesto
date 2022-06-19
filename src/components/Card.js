@@ -1,3 +1,5 @@
+import { data } from "autoprefixer";
+
 export class Card {
   constructor(
     data,
@@ -89,6 +91,7 @@ export class Card {
     this._likeNumber = this._element.querySelector(".card__counter");
     this._checkLikeOwner();
     this._chekCardOwner();
+    this._updateLikeState(this._data);
 
     this._setEventListeners();
 
