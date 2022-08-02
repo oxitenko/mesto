@@ -46,4 +46,4 @@ npm run dev
 ## Планы по дорабоке проека: 
 Перенести код на фреймворк Reactjs. [Ссылка на проект](https://github.com/oxitenko/mesto-react) 
 
-#
+
